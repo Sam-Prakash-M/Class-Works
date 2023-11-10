@@ -1,4 +1,4 @@
-package zohoquestions;
+package com.samprakash.arrays;
 
 import java.util.Scanner;
 

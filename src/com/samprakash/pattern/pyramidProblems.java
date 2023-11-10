@@ -1,8 +1,8 @@
-package com.samprakash.pyramid;
+package com.samprakash.pattern;
 
 import java.util.Scanner;
 
-public class pyramidPrintingZoho {
+public class pyramidProblems {
 
 	public static void main(String[] args) {
 		 Scanner scanner = new Scanner(System.in);

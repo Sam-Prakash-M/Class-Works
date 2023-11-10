@@ -2,7 +2,7 @@ package com.samprakash.numbersystem;
 
 import java.util.Scanner;
 
-public class NumberConversion {
+public class NumberConvertion {
 
 	public static void main(String[] args) {
 		   Scanner sc = new Scanner(System.in);

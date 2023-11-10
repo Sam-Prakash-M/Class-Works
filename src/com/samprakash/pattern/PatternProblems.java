@@ -1,6 +1,6 @@
 package com.samprakash.pattern;
 
-public class PatternPrintingZoho {
+public class PatternProblems {
 	
 	//There is no state for this Class
 	public static void pattern14(int size) {
