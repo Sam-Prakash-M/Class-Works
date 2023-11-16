@@ -12,7 +12,7 @@ public class ZohoCorp {
 	static String[] listOfQuestions = { "why main method is static in java?", "what is RunTime polymorphism",
 			"what is Compile Time Polymorphism?", "what is the Usage of this Keyword?",
 			"static keyword usage in java?" };
-	static String[] solutions = { "JVM", "Method Overriding", "Method OverLoading", "Current Object", "Comman" };
+	static String[] solutions = { "jvm", "method overriding", "method overloading", "current object", "comman" };
 
 	static Queue<Candidates> listOfCandidates = new ArrayDeque<>();
 	static List<Candidates> selectedCandidates = new ArrayList<>();
@@ -45,7 +45,7 @@ public class ZohoCorp {
 		for (int i = 0; i < listOfQuestions.length; i++) {
 			System.out.println(listOfQuestions[i]);
 			String userInput = sc.nextLine();
-			if (userInput.contains(solutions[i])) {
+			if (userInput.toLowerCase().contains(solutions[i])) {
 				score++;
 			}
 
