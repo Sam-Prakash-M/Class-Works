@@ -16,8 +16,10 @@ public class Palindrom {
       int [] frequencyArray2 = new int[26];
       p.countEachWordFrequency(str1,frequencyArray1);
       p.countEachWordFrequency(str2,frequencyArray2);
-   System.out.println(Arrays.toString(frequencyArray1));
-   System.out.println(Arrays.toString(frequencyArray2));
+		/*
+		 * System.out.println(Arrays.toString(frequencyArray1));
+		 * System.out.println(Arrays.toString(frequencyArray2));
+		 */
        boolean isValid = p.isPalindrom(frequencyArray1,frequencyArray2);
        System.out.println("Is it possible to make words : "+isValid);
       
@@ -47,9 +49,5 @@ public class Palindrom {
 		
 	}
 
-	private boolean isPalindrom(StringBuilder  sb, String str2) {
-		 
-		return false;
-	}
 
 }
