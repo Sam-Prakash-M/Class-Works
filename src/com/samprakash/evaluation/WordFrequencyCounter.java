@@ -35,17 +35,15 @@ public class WordFrequencyCounter {
 	}
 
 	private void eachWordFrquency(String[] eachWord, Map<String, Integer> map) {
-		  if(eachWord.length == 1) {
-			  map.put(eachWord[0],1);
-			  return;
-		  }
-		for(int i = 0 ; i < eachWord.length-1; i++) {
-			int count = 1;
+		
+		for(int i = 0 ; i < eachWord.length; i++) {
+			int count = 0;
 			if(!eachWord[i].equals("")) {
-				for(int j = i+1; j < eachWord.length; j++) {
+				for(int j = i; j < eachWord.length; j++) {
 					if(eachWord[i].equalsIgnoreCase(eachWord[j])) {
-						
-						eachWord[j] ="";
+						   if(i != j) {
+							   eachWord[j] ="";
+						   }
 						count++;
 					}
 				}

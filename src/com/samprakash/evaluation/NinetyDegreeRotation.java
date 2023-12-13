@@ -35,7 +35,7 @@ public class NinetyDegreeRotation {
 		}
 		for (int[] i : matrix) {
 			for (int j : i) {
-				System.out.print(j + " ");
+				System.out.printf("%2d ",j);
 			}
 			System.out.println();
 		}
