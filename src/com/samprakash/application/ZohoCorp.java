@@ -20,6 +20,7 @@ public class ZohoCorp {
 	private static Scanner sc = new Scanner(System.in);
 
 	public static Scanner getSc() {
+		
 		return sc;
 	}
 
@@ -58,18 +59,12 @@ public class ZohoCorp {
 		System.out.println("\n========================================================="
 				+ "\n\nHi all thank you for coperating and patience"
 				+ "\nnow we are going to announce the candidates who all are clear the rounds\n"
-	+"we read the name one by one please stand in your place\nalso one kind instructions"
-	+ "those who all are not selected for the upcoming process don't loss your hope\n"
-	+"Please take this as learning opprtunity and prepare well Accordingly\n"
-	+"Also candidates those who are all not selected please go out one by one in that way only okay\n\n");
+	);
 		for(Candidates person : selectedCandidates) {
 			System.out.println(person.getName()+" you have been Selcted for "
 					+ "further round stand in your own Place");
 		}
-		System.out.println("========================================================================="
-				+"\n\nSelected Candidates all are go and take lunch in our office\n"
-				+" and come shorply around 1:30 pm !! you all are have further round today itself\n\n"
-				+"=========================================================================");
+		
 		
 	}
 
