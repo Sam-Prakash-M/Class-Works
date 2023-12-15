@@ -11,25 +11,22 @@ import org.json.simple.parser.JSONParser;
 public class LaptopDemo {
 
 	public static void main(String[] args) {
-		myMethod();
-		
-	}
-	public static void myMethod() {
 		System.out.println("=======================================\n\nHi !! welcome to "
-		+SamLaptopShowroom.SHOP_NAME+"\n\nhere we have "
-		+"3 Different Brands laptops which is : \n\n"+Arrays.asList(LaptopList.ourLaptops)
-		+"\n\n=======================================");
-		gettingJSONObject();
-		do {
-			ListOfChoices();
-			System.out.println("\n\n=========================================================================\n");
-		} while (SamLaptopShowroom.stage != -1);
-		System.out.print("if you purchase any laptop from here "
-				+ "don't forgot to get free bag which is offer\n"
-				+ "from our company.Please given your bill and get free bag in Reception \n\n"
-				+ "========================THANK YOU COMING HERE,SEE YOU SOON AGAIN======================");
-		
+				+SamLaptopShowroom.SHOP_NAME+"\n\nhere we have "
+				+"3 Different Brands laptops which is : \n\n"+Arrays.asList(LaptopList.ourLaptops)
+				+"\n\n=======================================");
+				gettingJSONObject();
+				do {
+					ListOfChoices();
+					System.out.println("\n\n=========================================================================\n");
+				} while (SamLaptopShowroom.stage != -1);
+				System.out.print("if you purchase any laptop from here "
+						+ "don't forgot to get free bag which is offer\n"
+						+ "from our company.Please given your bill and get free bag in Reception \n\n"
+						+ "========================THANK YOU COMING HERE,SEE YOU SOON AGAIN======================");
+				
 	}
+	
 	private static void ListOfChoices() {
 		switch (SamLaptopShowroom.stage) {
 		case 1: {

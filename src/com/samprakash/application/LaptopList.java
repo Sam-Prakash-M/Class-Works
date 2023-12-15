@@ -1,8 +1,7 @@
 package com.samprakash.application;
 
 public class LaptopList {
-	public static int currDellCount = 15 , currAsusCount = 15 , currHpCount = 15 ,
-		currAppleCount = 15, currSamSungCount = 15 , totalLaptopCount = 75; 
+	
 	public  static String [] ourLaptops = {"Apple","Samsung","Asus"};
      private int stage;
  	private String option, laptopName;

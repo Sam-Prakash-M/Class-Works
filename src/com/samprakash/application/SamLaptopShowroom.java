@@ -9,7 +9,7 @@ import org.json.simple.JSONObject;
 public class SamLaptopShowroom {
 	public static final String SHOP_NAME = "Sam's Laptop Shop";
 	public static JSONObject jsonRetreiver;
-	public static JSONArray brandCollection, processorsVarient, ramVarient;
+	public static JSONArray brandCollection, processorsVarient, ramVarient,laptopVarient;
 	public static int stage = 1;
 	public static Stack <LaptopList> traverse = new Stack<>();
 	
@@ -144,19 +144,19 @@ public class SamLaptopShowroom {
 		int i, option;
 		String temp = traverse.peek().getOption();
 		JSONObject obj = (JSONObject) jsonRetreiver.get("List of Laptops");
-		ramVarient = (JSONArray) obj.get(temp);
+		laptopVarient = (JSONArray) obj.get(temp);
 		System.out.println("laptop Name\n");
-		for (i = 0; i < ramVarient.size(); i++) {
-			String str = (String) ramVarient.get(i);
+		for (i = 0; i < laptopVarient.size(); i++) {
+			String str = (String) laptopVarient.get(i);
 			System.out.println((i+1)+") "+str);
 		}
 		System.out.print((i + 1) + ") back to Previous Menu\n" + (i + 2) 
 				+ ") Exit\nChoose the Laptop : \n"
 				+ "=========================================================================");
-		option = getInputFromUser(1, ramVarient.size() + 2);
-		if (option <= ramVarient.size()) {
-			upLevel2(option, (String) ramVarient.get(option - 1));
-		} else if (option == ramVarient.size() + 1) {
+		option = getInputFromUser(1, laptopVarient.size() + 2);
+		if (option <= laptopVarient.size()) {
+			upLevel2(option, (String) laptopVarient.get(option - 1));
+		} else if (option == laptopVarient.size() + 1) {
 			downLevel();
 		} else {
 			stage = -1;
