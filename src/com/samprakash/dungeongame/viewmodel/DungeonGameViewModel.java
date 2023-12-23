@@ -33,19 +33,15 @@ public class DungeonGameViewModel {
 		   int adventurerCount = 0;
 		
 		if(adventurerRow > goldRow) {
-			  
-			while(adventurerRow != goldRow) {
-				adventurerCount++;
-				adventurerRow--;
-			}
+			   
+			adventurerCount += (adventurerRow- goldRow);
+			
 			adventurerCount += (Math.abs(adventurerCol - goldCol));
 			
 		}
 		else if(adventurerRow < goldRow) {
-			while(adventurerRow != goldRow) {
-				adventurerCount++;
-				adventurerRow++;
-			}
+			
+			adventurerCount += (goldRow - adventurerRow);
 			adventurerCount += (Math.abs(adventurerCol - goldCol));
 			
 		}
@@ -56,8 +52,7 @@ public class DungeonGameViewModel {
 		int monsterCount = this.findMonsterCount(goldRow,goldCol,monsterRow,monsterCol);
 		return adventurerCount <= monsterCount ? adventurerCount 
 				:  this.possibleUsingTrigger(goldRow, goldCol 
-						,allGamers.get(0).getAdventurerRow()
-						,allGamers.get(0).getAdventurerCol(),monsterCount, adventurerCount) ;
+						,adventurerRow,adventurerCol,monsterCount, adventurerCount) ;
 	}
 
 	private int possibleUsingTrigger(int goldRow, int goldCol, 
@@ -68,17 +63,14 @@ public class DungeonGameViewModel {
 		int triggerCount = 0;
 		if(adventurerRow > triggerRow) {
 			
-			while(adventurerRow != triggerRow) {
-				triggerCount++;
-				adventurerRow--;
-			}
+			
+			triggerCount += (adventurerRow - triggerRow);
 			triggerCount += (Math.abs(adventurerCol - triggerCol));
 		}
 		else if(adventurerRow  < triggerRow) {
-			while(adventurerRow != triggerRow) {
-				triggerCount++;
-				adventurerRow++;
-			}
+			
+			triggerCount += (triggerRow - adventurerRow);
+			
 			triggerCount += (Math.abs(adventurerCol - triggerCol));
 		}
 		else {
@@ -95,17 +87,12 @@ public class DungeonGameViewModel {
 		     int triggerToGoldCount = 0;
 		     if(triggerRow > goldRow) {
 		    	 
-		    	 while(triggerRow != goldRow) {
-		    		 triggerToGoldCount++;
-		    		 triggerRow--;
-		    	 }
+		    	 triggerToGoldCount += (triggerRow - goldRow );
+		    	 
 		    	 triggerToGoldCount += (Math.abs(triggerCol - goldCol));
 		     }
 		     else if(triggerRow < goldRow) {
-		    	 while(triggerRow != goldRow) {
-		    		 triggerToGoldCount++;
-		    		 triggerRow++;
-		    	 }
+		    	 triggerToGoldCount += (goldRow - triggerRow);
 		    	 triggerToGoldCount += (Math.abs(triggerCol - goldCol));
 		     }
 		     else {
@@ -119,18 +106,13 @@ public class DungeonGameViewModel {
 		int monsterCount = 0;
 		if(monsterRow > goldRow) {
 			  
-			while(monsterRow != goldRow) {
-				monsterCount++;
-				monsterRow--;
-			}
+			monsterCount += (monsterRow - goldRow);
 			monsterCount += (Math.abs(monsterCol - goldCol));
 			
 		}
 		else if(monsterRow < goldRow) {
-			while(monsterRow != goldRow) {
-				monsterCount++;
-				monsterRow++;
-			}
+			monsterCount += (goldRow - monsterRow);
+			
 			monsterCount += (Math.abs(monsterCol - goldCol));
 			
 		}

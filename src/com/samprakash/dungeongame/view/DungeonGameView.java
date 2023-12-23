@@ -29,12 +29,12 @@ public class DungeonGameView {
 				  ,adventurerCol,GoldRow,GoldCol , monsterRow , monsterCol,triggerRow ,triggerCol);
 		  int minCount = dungeonGameViewModel.findMinimumPath();
 		  if(minCount != -1) {
-				/*
-				 * dungeonGameViewModel.findThePathsOfAdventurer(adventurerRow
-				 * ,adventurerCol,GoldRow ,GoldCol);
-				 * dungeonGameViewModel.findThePathsOfMonster(monsterRow ,monsterCol,GoldRow
-				 * ,GoldCol); dungeonGameViewModel.showThePath();
-				 */
+				
+				  dungeonGameViewModel.findThePathsOfAdventurer(adventurerRow
+				  ,adventurerCol,GoldRow ,GoldCol);
+				  dungeonGameViewModel.findThePathsOfMonster(monsterRow ,monsterCol,GoldRow
+				  ,GoldCol); dungeonGameViewModel.showThePath();
+				 
 			  System.out.println("MinimumCount is : "+minCount);
 		  }
 		  else {
