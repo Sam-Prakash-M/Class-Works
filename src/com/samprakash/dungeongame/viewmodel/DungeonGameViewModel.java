@@ -12,10 +12,12 @@ public class DungeonGameViewModel {
    public static  List<Gamer> allGamers = new ArrayList <>(); 
 
 	public void setTheGame(char[][] dungeonGame, int adventurerPlaceRow, int adventurerPlaceCol, int goldPlaceRow,
-			int goldPlaceCol , int monsterRow , int monsterCol) {
+			int goldPlaceCol , 
+			int monsterRow , int monsterCol , int triggerRow , int triggerCol) {
 		
 		  Gamer firstGamer =  new Gamer(dungeonGame,adventurerPlaceRow
-				  ,adventurerPlaceCol,goldPlaceRow,goldPlaceCol , monsterRow , monsterCol);
+				  ,adventurerPlaceCol,goldPlaceRow,goldPlaceCol 
+				  , monsterRow , monsterCol , triggerRow , triggerCol);
 		  allGamers.add(firstGamer);
 		  
 		
@@ -50,33 +52,93 @@ public class DungeonGameViewModel {
 		else {
 			adventurerCount += (Math.abs(adventurerCol - goldCol));
 		}
-		int monsterMinCount = this.findMonsterCount(goldRow,goldCol,monsterRow,monsterCol);
-		return adventurerCount <= monsterMinCount ? adventurerCount : -1  ;
+		System.out.println("Adventurer Count : "+adventurerCount);
+		int monsterCount = this.findMonsterCount(goldRow,goldCol,monsterRow,monsterCol);
+		return adventurerCount <= monsterCount ? adventurerCount 
+				:  this.possibleUsingTrigger(goldRow, goldCol 
+						,allGamers.get(0).getAdventurerRow()
+						,allGamers.get(0).getAdventurerCol(),monsterCount, adventurerCount) ;
+	}
+
+	private int possibleUsingTrigger(int goldRow, int goldCol, 
+			int adventurerRow , int adventurerCol , int monsterCount , int adventurerCount) {
+		int triggerRow = allGamers.get(0).getTriggerRow();
+		int triggerCol = allGamers.get(0).getTriggerCol();
+		
+		int triggerCount = 0;
+		if(adventurerRow > triggerRow) {
+			
+			while(adventurerRow != triggerRow) {
+				triggerCount++;
+				adventurerRow--;
+			}
+			triggerCount += (Math.abs(adventurerCol - triggerCol));
+		}
+		else if(adventurerRow  < triggerRow) {
+			while(adventurerRow != triggerRow) {
+				triggerCount++;
+				adventurerRow++;
+			}
+			triggerCount += (Math.abs(adventurerCol - triggerCol));
+		}
+		else {
+			triggerCount += (Math.abs(adventurerCol - triggerCol));
+		}
+		
+		System.out.println("Adventurer to Trigger  Count : "+triggerCount);
+		return triggerCount > monsterCount ? -1 
+				: triggerCount + this.triggerToGold(goldRow, goldCol,triggerRow, triggerCol ,triggerCount) ;
+	}
+
+	private int triggerToGold(int goldRow, int goldCol, int triggerRow, int triggerCol, int triggerCount) {
+		   
+		     int triggerToGoldCount = 0;
+		     if(triggerRow > goldRow) {
+		    	 
+		    	 while(triggerRow != goldRow) {
+		    		 triggerToGoldCount++;
+		    		 triggerRow--;
+		    	 }
+		    	 triggerToGoldCount += (Math.abs(triggerCol - goldCol));
+		     }
+		     else if(triggerRow < goldRow) {
+		    	 while(triggerRow != goldRow) {
+		    		 triggerToGoldCount++;
+		    		 triggerRow++;
+		    	 }
+		    	 triggerToGoldCount += (Math.abs(triggerCol - goldCol));
+		     }
+		     else {
+		    	 triggerToGoldCount += (Math.abs(triggerCol - goldCol));
+		     }
+		     System.out.println("Trigger to Gold Count : "+triggerToGoldCount);
+		return triggerToGoldCount;
 	}
 
 	private int findMonsterCount(int goldRow, int goldCol,int monsterRow, int monsterCol) {
-		int minCount = 0;
+		int monsterCount = 0;
 		if(monsterRow > goldRow) {
 			  
 			while(monsterRow != goldRow) {
-				minCount++;
+				monsterCount++;
 				monsterRow--;
 			}
-			minCount += (Math.abs(monsterCol - goldCol));
+			monsterCount += (Math.abs(monsterCol - goldCol));
 			
 		}
 		else if(monsterRow < goldRow) {
 			while(monsterRow != goldRow) {
-				minCount++;
+				monsterCount++;
 				monsterRow++;
 			}
-			minCount += (Math.abs(monsterCol - goldCol));
+			monsterCount += (Math.abs(monsterCol - goldCol));
 			
 		}
 		else {
-			minCount += (Math.abs(monsterCol - goldCol));
+			monsterCount += (Math.abs(monsterCol - goldCol));
 		}
-		return minCount;
+		System.out.println("monster Count : "+monsterCount);
+		return monsterCount;
 		
 	}
 

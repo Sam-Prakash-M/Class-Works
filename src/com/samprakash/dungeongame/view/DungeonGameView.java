@@ -22,18 +22,19 @@ public class DungeonGameView {
 		  int GoldRow = scanner.nextInt() , GoldCol = scanner.nextInt();
 		  System.out.println("Enter a Monstor Place : ");
 		  int monsterRow = scanner.nextInt() , monsterCol = scanner.nextInt();
+		 
+		  System.out.println("Enter a Trigger Place : ");
+		  int triggerRow = scanner.nextInt() , triggerCol = scanner.nextInt();
 		  dungeonGameViewModel.setTheGame(dungeonGame,adventurerRow
-				  ,adventurerCol,GoldRow,GoldCol , monsterRow , monsterCol);
-		  
+				  ,adventurerCol,GoldRow,GoldCol , monsterRow , monsterCol,triggerRow ,triggerCol);
 		  int minCount = dungeonGameViewModel.findMinimumPath();
 		  if(minCount != -1) {
-			  dungeonGameViewModel.findThePathsOfAdventurer(adventurerRow
-					  ,adventurerCol,GoldRow
-					  ,GoldCol);
-			  dungeonGameViewModel.findThePathsOfMonster(monsterRow
-					  ,monsterCol,GoldRow
-					  ,GoldCol);
-			  dungeonGameViewModel.showThePath();
+				/*
+				 * dungeonGameViewModel.findThePathsOfAdventurer(adventurerRow
+				 * ,adventurerCol,GoldRow ,GoldCol);
+				 * dungeonGameViewModel.findThePathsOfMonster(monsterRow ,monsterCol,GoldRow
+				 * ,GoldCol); dungeonGameViewModel.showThePath();
+				 */
 			  System.out.println("MinimumCount is : "+minCount);
 		  }
 		  else {
