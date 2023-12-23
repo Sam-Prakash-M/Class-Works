@@ -17,22 +17,34 @@ public class DungeonGameView {
 		char [][] dungeonGame = new char[row][col];
 		
 		System.out.println("Enter a adventurer place : ");
-		  int adventurerPlaceRow = scanner.nextInt(), adventurerPlaceCol = scanner.nextInt();
+		  int adventurerRow = scanner.nextInt(), adventurerCol = scanner.nextInt();
 		  System.out.println("Enter a Gold Place : ");
-		  int GoldPlaceRow = scanner.nextInt() , GoldPlaceCol = scanner.nextInt();
+		  int GoldRow = scanner.nextInt() , GoldCol = scanner.nextInt();
 		  System.out.println("Enter a Monstor Place : ");
 		  int monsterRow = scanner.nextInt() , monsterCol = scanner.nextInt();
-		  dungeonGameViewModel.setTheGame(dungeonGame,adventurerPlaceRow
-				  ,adventurerPlaceCol,GoldPlaceRow,GoldPlaceCol , monsterRow , monsterCol);
+		  dungeonGameViewModel.setTheGame(dungeonGame,adventurerRow
+				  ,adventurerCol,GoldRow,GoldCol , monsterRow , monsterCol);
 		  
 		  int minCount = dungeonGameViewModel.findMinimumPath();
 		  if(minCount != -1) {
+			  dungeonGameViewModel.findThePathsOfAdventurer(adventurerRow
+					  ,adventurerCol,GoldRow
+					  ,GoldCol);
+			  dungeonGameViewModel.findThePathsOfMonster(monsterRow
+					  ,monsterCol,GoldRow
+					  ,GoldCol);
+			  dungeonGameViewModel.showThePath();
 			  System.out.println("MinimumCount is : "+minCount);
 		  }
 		  else {
 			  System.out.println("No Possible Solution :");
 		  }
 		 
+		
+	}
+	public void printThePath(String path) {
+		
+		System.out.println(path);
 		
 	}
 
