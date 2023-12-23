@@ -20,12 +20,19 @@ public class DungeonGameView {
 		  int adventurerPlaceRow = scanner.nextInt(), adventurerPlaceCol = scanner.nextInt();
 		  System.out.println("Enter a Gold Place : ");
 		  int GoldPlaceRow = scanner.nextInt() , GoldPlaceCol = scanner.nextInt();
-		  
+		  System.out.println("Enter a Monstor Place : ");
+		  int monsterRow = scanner.nextInt() , monsterCol = scanner.nextInt();
 		  dungeonGameViewModel.setTheGame(dungeonGame,adventurerPlaceRow
-				  ,adventurerPlaceCol,GoldPlaceRow,GoldPlaceCol);
+				  ,adventurerPlaceCol,GoldPlaceRow,GoldPlaceCol , monsterRow , monsterCol);
 		  
 		  int minCount = dungeonGameViewModel.findMinimumPath();
-		  System.out.println("MinimumCount is : "+minCount);
+		  if(minCount != -1) {
+			  System.out.println("MinimumCount is : "+minCount);
+		  }
+		  else {
+			  System.out.println("No Possible Solution :");
+		  }
+		 
 		
 	}
 
