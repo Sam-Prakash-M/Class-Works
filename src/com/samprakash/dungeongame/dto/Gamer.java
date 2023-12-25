@@ -1,10 +1,52 @@
 package com.samprakash.dungeongame.dto;
 
 public class Gamer {
-   
-	 private int  adventurerCol , adventurerRow 
-	 , goldRow, GoldCol,monsterRow,monsterCol , triggerRow , triggerCol;
-	 public int getMonsterCol() {
+
+	private int adventurerCol, adventurerRow, goldRow, GoldCol, monsterRow, monsterCol, triggerRow, triggerCol,
+			adventurerCount, monsterCount, adventurerToTriggerCount, triggerToGoldCount;
+	private char[][] dungeonGame;
+    private int[][] pits;
+	public int[][] getPits() {
+		return pits;
+	}
+
+	public void setPits(int[][] pits) {
+		this.pits = pits;
+	}
+
+	public int getAdventurerCount() {
+		return adventurerCount;
+	}
+
+	public void setAdventurerCount(int adventurerCount) {
+		this.adventurerCount = adventurerCount;
+	}
+
+	public int getMonsterCount() {
+		return monsterCount;
+	}
+
+	public void setMonsterCount(int monsterCount) {
+		this.monsterCount = monsterCount;
+	}
+
+	public int getAdventurerToTriggerCount() {
+		return adventurerToTriggerCount;
+	}
+
+	public void setAdventurerToTriggerCount(int adventurerToTriggerCount) {
+		this.adventurerToTriggerCount = adventurerToTriggerCount;
+	}
+
+	public int getTriggerToGoldCount() {
+		return triggerToGoldCount;
+	}
+
+	public void setTriggerToGoldCount(int triggerToGoldCount) {
+		this.triggerToGoldCount = triggerToGoldCount;
+	}
+
+	public int getMonsterCol() {
 		return monsterCol;
 	}
 
@@ -20,12 +62,10 @@ public class Gamer {
 		this.monsterRow = monsterRow;
 	}
 
-	private  char dungeonGame[][];
+	
 
-		public Gamer(char[][] dungeonGame, int adventurerPlaceRow,
-				int adventurerPlaceCol, int goldRow,
-			int goldCol , int monsterRow 
-			, int monsterCol, int triggerRow , int triggerCol ) {
+	public Gamer(char[][] dungeonGame, int adventurerPlaceRow, int adventurerPlaceCol, int goldRow, int goldCol,
+			int monsterRow, int monsterCol, int triggerRow, int triggerCol) {
 		this.dungeonGame = dungeonGame;
 		this.adventurerRow = adventurerPlaceRow;
 		this.adventurerCol = adventurerPlaceCol;
@@ -37,33 +77,44 @@ public class Gamer {
 		this.triggerCol = triggerCol;
 	}
 
-		public int getTriggerRow() {
-			return triggerRow;
-		}
+	public Gamer(char[][] dungeonGame, int adventurerRow, int adventurerCol, int goldRow, int goldCol,
+			int[][] pits) {
+		this.dungeonGame = dungeonGame;
+		this.adventurerRow = adventurerRow;
+		this.adventurerCol = adventurerCol;
+		this.goldRow = goldRow;
+		this.GoldCol = goldCol;
+		this.pits = pits;
+	}
 
-		public void setTriggerRow(int triggerRow) {
-			this.triggerRow = triggerRow;
-		}
+	public int getTriggerRow() {
+		return triggerRow;
+	}
 
-		public int getTriggerCol() {
-			return triggerCol;
-		}
+	public void setTriggerRow(int triggerRow) {
+		this.triggerRow = triggerRow;
+	}
 
-		public void setTriggerCol(int triggerCol) {
-			this.triggerCol = triggerCol;
-		}
+	public int getTriggerCol() {
+		return triggerCol;
+	}
 
-		public void setMonsterCol(int monsterCol) {
-			this.monsterCol = monsterCol;
-		}
+	public void setTriggerCol(int triggerCol) {
+		this.triggerCol = triggerCol;
+	}
 
-		public  char[][] getDungeonGame() {
-			return dungeonGame;
-		}
+	public void setMonsterCol(int monsterCol) {
+		this.monsterCol = monsterCol;
+	}
 
-		public  void setDungeonGame(char[][] dungeonGame) {
-			 this.dungeonGame = dungeonGame;
-		}
+	public char[][] getDungeonGame() {
+		return dungeonGame;
+	}
+
+	public void setDungeonGame(char[][] dungeonGame) {
+		this.dungeonGame = dungeonGame;
+	}
+
 	public int getAdventurerCol() {
 		return adventurerCol;
 	}
