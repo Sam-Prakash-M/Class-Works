@@ -48,9 +48,12 @@ public class DungeonGameViewModel {
 		int monsterCount = this.findMonsterCount(goldRow, goldCol, monsterRow, monsterCol);
 		allGamers.get(0).setAdventurerCount(adventurerCount);
 		allGamers.get(0).setMonsterCount(monsterCount);
-		return adventurerCount <= monsterCount ? adventurerCount
-				: this.possibleUsingTrigger(goldRow, goldCol, adventurerRow, adventurerCol, monsterCount,
-						adventurerCount);
+		return adventurerCount <= monsterCount ? adventurerCount : -1;
+		/*
+		 * return adventurerCount <= monsterCount ? adventurerCount :
+		 * this.possibleUsingTrigger(goldRow, goldCol, adventurerRow, adventurerCol,
+		 * monsterCount, adventurerCount);
+		 */
 	}
 
 	private int possibleUsingTrigger(int goldRow, int goldCol, int adventurerRow, int adventurerCol, int monsterCount,
@@ -430,7 +433,7 @@ public class DungeonGameViewModel {
 
 	}
 
-	public void findAllPossiblePathsOfAdventurer(List<int[]> result, int row, int col, int adventurerRow,
+	public void findAllPossiblePathsOfAdventurerToGold(List<int[]> result, int row, int col, int adventurerRow,
 			int adventurerCol, int goldRow, int goldCol, boolean[][] previouslyVisited) {
 		
 		if (adventurerRow < 0 || adventurerRow >= row || adventurerCol < 0 
@@ -448,74 +451,27 @@ public class DungeonGameViewModel {
 			
 
 		} else {
-			findAllPossiblePathsOfAdventurer(result, row, col, adventurerRow - 1, adventurerCol, goldRow, goldCol,
+			findAllPossiblePathsOfAdventurerToGold(result, row, col, adventurerRow - 1, adventurerCol, goldRow, goldCol,
 					previouslyVisited);
 
-			findAllPossiblePathsOfAdventurer(result, row, col, adventurerRow + 1, adventurerCol, goldRow, goldCol,
+			findAllPossiblePathsOfAdventurerToGold(result, row, col, adventurerRow + 1, adventurerCol, goldRow, goldCol,
 					previouslyVisited);
 
-			findAllPossiblePathsOfAdventurer(result, row, col, adventurerRow, adventurerCol - 1, goldRow, goldCol,
+			findAllPossiblePathsOfAdventurerToGold(result, row, col, adventurerRow, adventurerCol - 1, goldRow, goldCol,
 					previouslyVisited);
-			findAllPossiblePathsOfAdventurer(result, row, col, adventurerRow, adventurerCol + 1, goldRow, goldCol,
+			findAllPossiblePathsOfAdventurerToGold(result, row, col, adventurerRow, adventurerCol + 1, goldRow, goldCol,
 					previouslyVisited);
 	     }
 		// back track
 				previouslyVisited[adventurerRow][adventurerCol] = false;
 				result.remove(result.size() - 1);
 
-		/*
-		 * if (adventurerRow + 1 < row && (!previouslyVisited[adventurerRow +
-		 * 1][adventurerCol])) {
-		 * 
-		 * 
-		 * 
-		 * 
-		 * if( (adventurerRow + 1 == goldRow && adventurerCol == goldCol ) ) { return; }
-		 * 
-		 * 
-		 * 
-		 * 
-		 * } if (adventurerRow - 1 >= 0 && (!previouslyVisited[adventurerRow -
-		 * 1][adventurerCol])) {
-		 * 
-		 * previouslyVisited[adventurerRow - 1][adventurerCol] = true; result.add("( " +
-		 * (adventurerRow - 1) + " , " + adventurerCol + " )");
-		 * 
-		 * 
-		 * 
-		 * 
-		 * if( (adventurerRow - 1 == goldRow && adventurerCol == goldCol ) ) { return; }
-		 * 
-		 * 
-		 * } if (adventurerCol + 1 < col &&
-		 * (!previouslyVisited[adventurerRow][adventurerCol + 1])) {
-		 * previouslyVisited[adventurerRow][adventurerCol + 1] = true; result.add("( " +
-		 * adventurerRow + " , " + (adventurerCol + 1) + " )");
-		 * 
-		 * 
-		 * 
-		 * 
-		 * if( (adventurerRow == goldRow && adventurerCol + 1 == goldCol ) ) { return; }
-		 * 
-		 * 
-		 * } if (adventurerCol - 1 >= 0 &&
-		 * (!previouslyVisited[adventurerRow][adventurerCol - 1])) {
-		 * previouslyVisited[adventurerRow][adventurerCol - 1] = true; result.add("( " +
-		 * adventurerRow + " , " + (adventurerCol - 1) + " )");
-		 * 
-		 * 
-		 * 
-		 * if( (adventurerRow == goldRow && adventurerCol - 1 == goldCol ) ) { return; }
-		 * 
-		 * 
-		 * 
-		 * }
-		 */
-
+		
 	}
 
 	public void printAllAdventurerPossiblePaths() {
-
+   
+		  System.out.println("is adventurer ways empty : "+DungeonGameRepository.adventurerAllWays.isEmpty());
 		for (List<int[]> list : DungeonGameRepository.adventurerAllWays) {
 			for(int[] array : list) {
 				System.out.print(Arrays.toString(array)+" ");
@@ -530,16 +486,23 @@ public class DungeonGameViewModel {
 		   int currCount = 0 , minCount = Integer.MAX_VALUE;
 		  for (List<int[]> list : DungeonGameRepository.adventurerAllWays) {
 			     boolean isCorrectWay = true;
-	 intArray :	for(int[] array : list) {
-              
-				for(int i = 0 ; i < pits.length ; i++) {
-					  if(array[0] == pits[i][0] && array[1] == pits[i][1]) {
-						  isCorrectWay = false;
-						  break intArray;
-					  }
-					}
-				}
-	              if(isCorrectWay) {
+			     //collidingWith Monster
+			     if(isColidingWithMonster(list, DungeonGameRepository.monsterAllWays)) {
+			    	 isCorrectWay = false;
+			     }
+			     else {
+			    	 intArray :	for(int[] array : list) {
+			              
+							for(int i = 0 ; i < pits.length ; i++) {
+								  if(array[0] == pits[i][0] && array[1] == pits[i][1]) {
+									  isCorrectWay = false;
+									  break intArray;
+								  } 
+								}
+							}
+				       	
+			     }
+			     if(isCorrectWay) {
 	            	  currCount = list.size() - 1 ;
 	            	  if(currCount <= minCount) {
 	            		  minCount = currCount;
@@ -547,19 +510,119 @@ public class DungeonGameViewModel {
 	            		  DungeonGameRepository.adventurerBestWay.add(list);
 	            	  }
 	              }
-			
+	
 			
 		}
 		   System.out.println("The correct Minimim Path  is : ");
 		  for(List <int[]> list : DungeonGameRepository.adventurerBestWay) {
+			  boolean isShortestPath = false;
 			  for(int [] arr : list) {
 				  if(list.size() == minCount + 1) {
+					  isShortestPath = true;
 					  System.out.print(Arrays.toString(arr)+" ");
 				  }  
 			  }
-			  System.out.println();
+			  if(isShortestPath) {
+				  System.out.println();
+			  }
+			   
 		  }
-		  return minCount;
+		  return DungeonGameRepository.adventurerBestWay.isEmpty() ?  -1 : minCount;
+		
+	}
+
+	private boolean isColidingWithMonster(List <int[]> adventurer , List <List <int[]>> monster) {
+		  
+		
+	for(int i = 0 ; i < adventurer.size() - 1; i++) {
+			            
+			 for(List <int[]> eachMonster : monster) {
+				 
+				if(eachMonster.size() - 1 == allGamers.get(0).getMonsterCount() && i < eachMonster.size() ) {
+					
+						int [] adventurerArray = adventurer.get(i);
+						int [] monsterArray1 = eachMonster.get(i);
+						if(i == 0) {
+			
+							if(adventurerArray[0] == monsterArray1[0] 
+									&& adventurerArray[1] == monsterArray1[1]) {
+								//System.out.println("Adventurer Colliding with monster : ");
+								return true;
+								
+							}
+						}
+						else {
+							int [] monsterArray2 = eachMonster.get(i - 1);
+							if( (adventurerArray[0] == monsterArray1[0] 
+									&& adventurerArray[1] == monsterArray1[1]) ||
+									(adventurerArray[0] == monsterArray2[0] 
+											&& adventurerArray[1] == monsterArray2[1])) {
+								//System.out.println("Adventurer Colliding with monster : ");
+								return true;
+							}
+							
+						}
+					
+				}
+			}
+		}
+		
+	//System.out.println("Adventurer Not Colliding with monster : ");
+		return false;
+	}
+
+	public void setTheGame(char[][] dungeonGame, int adventurerRow, int adventurerCol,int monsterRow, int monsterCol, int goldRow,
+			int goldCol, int[][] pits) {
+		
+		Gamer gamer = new Gamer(dungeonGame,adventurerRow,adventurerCol,monsterRow,monsterCol,goldRow,goldCol,pits);
+		allGamers.add(gamer);
+		
+	}
+
+	public void findAllPossibleMonsterToGold(List<int[]> result, int row, int col, int monsterRow, int monsterCol,
+			int goldRow, int goldCol, boolean[][] previouslyVisited) {
+		if (monsterRow < 0 || monsterRow >= row || monsterCol < 0 
+				|| monsterCol >= col
+			|| previouslyVisited[monsterRow][monsterCol]) {
+		return;
+	}
+
+	previouslyVisited[monsterRow][monsterCol] = true;
+	result.add(new int[] {monsterRow , monsterCol});
+
+	if ((monsterRow == goldRow && monsterCol == goldCol)) {	
+        
+		DungeonGameRepository.monsterAllWays.add(new ArrayList<>(result));
+		
+
+	} else {
+		findAllPossibleMonsterToGold(result, row, col, monsterRow - 1, monsterCol, goldRow, goldCol,
+				previouslyVisited);
+
+		findAllPossibleMonsterToGold(result, row, col, monsterRow + 1, monsterCol, goldRow, goldCol,
+				previouslyVisited);
+
+		findAllPossibleMonsterToGold(result, row, col, monsterRow, monsterCol - 1, goldRow, goldCol,
+				previouslyVisited);
+		findAllPossibleMonsterToGold(result, row, col, monsterRow, monsterCol + 1, goldRow, goldCol,
+				previouslyVisited);
+     }
+	// back track
+			previouslyVisited[monsterRow][monsterCol] = false;
+			result.remove(result.size() - 1);
+
+		
+	}
+
+	public void printAllMonsterPossiblePaths() {
+		System.out.println("Is Empty monster : "+DungeonGameRepository.monsterAllWays.isEmpty());
+		for (List<int[]> list : DungeonGameRepository.monsterAllWays) {
+			for(int[] array : list) {
+				System.out.print(Arrays.toString(array)+" ");
+			}
+			System.out.println();
+			
+		}
 		
 	}
 
