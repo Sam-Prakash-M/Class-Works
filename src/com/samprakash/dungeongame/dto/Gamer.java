@@ -99,6 +99,20 @@ public class Gamer {
 		this.pits = pits;
 	}
 
+	public Gamer(char[][] dungeonGame, int adventurerRow, int adventurerCol, int monsterRow, int monsterCol,
+			int goldRow, int goldCol, int triggerRow, int triggerCol, int[][] pits) {
+		this.dungeonGame = dungeonGame;
+		this.adventurerRow = adventurerRow;
+		this.adventurerCol = adventurerCol;
+		this.monsterRow = monsterRow;
+		this.monsterCol = monsterCol;
+		this.triggerRow = triggerRow;
+		this.triggerCol = triggerCol;
+		this.goldRow = goldRow;
+		this.GoldCol = goldCol;
+		this.pits = pits;
+	}
+
 	public int getTriggerRow() {
 		return triggerRow;
 	}

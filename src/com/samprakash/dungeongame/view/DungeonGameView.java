@@ -26,9 +26,14 @@ public class DungeonGameView {
 		  System.out.println("Enter a Monstor Place : "); 
 		  
 		  int monsterRow =scanner.nextInt() , monsterCol = scanner.nextInt();
+		  
 		  System.out.println("Enter a Gold Place : ");
 		  
-		  int GoldRow = scanner.nextInt() , GoldCol = scanner.nextInt();
+		  int goldRow = scanner.nextInt() , goldCol = scanner.nextInt();
+		  
+		  System.out.println("Enter a Trigger Place : ");
+		  
+		  int triggerRow = scanner.nextInt() , triggerCol = scanner.nextInt();
 		  
 		  System.out.println("Enter a Number Of Pits : ");
 		  
@@ -44,41 +49,59 @@ public class DungeonGameView {
 		  }
 		    
 		  dungeonGameViewModel.setTheGame(dungeonGame,adventurerRow ,adventurerCol,
-				  monsterRow,monsterCol,GoldRow, GoldCol, pits);
+				  monsterRow,monsterCol,goldRow, goldCol,triggerRow ,triggerCol , pits);
 			/*
+			 * dungeonGameViewModel.setTheGame(dungeonGame,adventurerRow ,adventurerCol,
+			 * monsterRow,monsterCol,GoldRow, GoldCol, pits);
+			 * 
 			 * dungeonGameViewModel.setTheGame(dungeonGame,adventurerRow ,adventurerCol
 			 * ,GoldRow, GoldCol, pits);
 			 */
+			 
 		
 		  
 		  boolean [][] previouslyVisited = new boolean[row][col];
-		
+		  dungeonGameViewModel.findAllPossiblePathsOfAdventurerToTrigger(new ArrayList<>(),row,col,
+				  adventurerRow ,adventurerCol,triggerRow,triggerCol,
+				  previouslyVisited); 
+		  dungeonGameViewModel.findAllPossiblePathsOfTriggerToGold(new ArrayList<>(),row,col,
+				  triggerRow,triggerCol,goldRow,goldCol,
+				  previouslyVisited); 
 			
-	dungeonGameViewModel.findAllPossiblePathsOfAdventurerToGold(new ArrayList<>(),row,col,adventurerRow ,adventurerCol,GoldRow,GoldCol,
-			  previouslyVisited); 
-	//dungeonGameViewModel.printAllAdventurerPossiblePaths();
-	
-	dungeonGameViewModel.findAllPossibleMonsterToGold(new ArrayList<>(),row,col,monsterRow ,monsterCol,GoldRow,GoldCol,
-			  new boolean[row][col]); 
-	//dungeonGameViewModel.printAllMonsterPossiblePaths();
-             
-	int minCount = dungeonGameViewModel.findMinimumPath();
+			/*
+			 * dungeonGameViewModel.findAllPossiblePathsOfAdventurerToGold(new
+			 * ArrayList<>(),row,col,adventurerRow ,adventurerCol,GoldRow,GoldCol,
+			 * previouslyVisited);
+			 */
+			/*
+			 * //dungeonGameViewModel.printAllAdventurerPossiblePaths();
+			 * 
+			 * dungeonGameViewModel.findAllPossibleMonsterToGold(new
+			 * ArrayList<>(),row,col,monsterRow ,monsterCol,GoldRow,GoldCol, new
+			 * boolean[row][col]); //dungeonGameViewModel.printAllMonsterPossiblePaths();
+			 */
+		 int minCount = dungeonGameViewModel.findMinimumPath();
+		  int adventurerToGoldCount = dungeonGameViewModel.printMinimumPathAdventurerToTriggerWithoutCollidingPits(pits);
+		     if(adventurerToGoldCount != -1) {
+		    	 int triggerToGoldCount = dungeonGameViewModel.printMinimumPathTriggerToGoldWithoutCollidingPits(pits); 
+		    	 if(triggerToGoldCount != -1) {
+		    		 System.out.println("The Minimum Path is : "+(adventurerToGoldCount + triggerToGoldCount));
+		    	 }
+		     }
+		     else {
+		    	 System.out.println("No possible Solution : "); 
+		     }
 		  
-		  if(minCount != -1) {
-			  int count = dungeonGameViewModel.printMinimumPathWithoutCollidingPits(pits);
-			  if(count != -1) {
-				  System.out.println("Count is : "+count);
-			  }
-			  else {
-				  System.out.println("No possible Solution : "); 
-			  }
-			 
-		  }
-		  else {
-			  System.out.println("No possible Solution : ");
-			  
-		  }
-		  
+				/*
+				 * if(minCount != -1) { int count =
+				 * dungeonGameViewModel.printMinimumPathWithoutCollidingPits(pits); if(count !=
+				 * -1) { System.out.println("Count is : "+count); } else {
+				 * System.out.println("No possible Solution : "); }
+				 * 
+				 * } else { System.out.println("No possible Solution : ");
+				 * 
+				 * }
+				 */
 			
 			  
 			  

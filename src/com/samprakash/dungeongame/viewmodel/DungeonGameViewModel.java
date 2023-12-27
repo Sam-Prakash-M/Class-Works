@@ -99,7 +99,7 @@ public class DungeonGameViewModel {
 		return triggerToGoldCount;
 	}
 
-	private int findMonsterCount(int goldRow, int goldCol, int monsterRow, int monsterCol) {
+	public int findMonsterCount(int goldRow, int goldCol, int monsterRow, int monsterCol) {
 		int monsterCount = 0;
 		if (monsterRow > goldRow) {
 
@@ -539,7 +539,7 @@ public class DungeonGameViewModel {
 			 for(List <int[]> eachMonster : monster) {
 				 
 				if(eachMonster.size() - 1 == allGamers.get(0).getMonsterCount() && i < eachMonster.size() ) {
-					
+					System.out.println("Curr Monster count is : "+allGamers.get(0).getMonsterCount());
 						int [] adventurerArray = adventurer.get(i);
 						int [] monsterArray1 = eachMonster.get(i);
 						if(i == 0) {
@@ -623,6 +623,181 @@ public class DungeonGameViewModel {
 			System.out.println();
 			
 		}
+		
+	}
+
+	public void setTheGame(char[][] dungeonGame, int adventurerRow, int adventurerCol, int monsterRow, int monsterCol,
+			int goldRow, int goldCol, int triggerRow, int triggerCol, int[][] pits) {
+		Gamer gamer = new Gamer(dungeonGame,adventurerRow,
+				adventurerCol,monsterRow,monsterCol,goldRow,goldCol,triggerRow , triggerCol ,pits);
+		allGamers.add(gamer);
+		
+	}
+
+	public void findAllPossiblePathsOfAdventurerToTrigger(List<int[]> result, int row, int col, int adventurerRow,
+			int adventurerCol, int triggerRow, int triggerCol, boolean[][] previouslyVisited) {
+		if (adventurerRow < 0 || adventurerRow >= row || adventurerCol < 0 
+				|| adventurerCol >= col
+			|| previouslyVisited[adventurerRow][adventurerCol]) {
+		return;
+	}
+
+	previouslyVisited[adventurerRow][adventurerCol] = true;
+	result.add(new int[] {adventurerRow , adventurerCol});
+
+	if ((adventurerRow == triggerRow && adventurerCol == triggerCol)) {	
+        
+		DungeonGameRepository.adventurerToTriggerWay.add(new ArrayList<>(result));
+		
+
+	} else {
+		findAllPossiblePathsOfAdventurerToTrigger(result, row, col, adventurerRow - 1, adventurerCol, triggerRow, triggerCol,
+				previouslyVisited);
+
+		findAllPossiblePathsOfAdventurerToTrigger(result, row, col, adventurerRow + 1, adventurerCol, triggerRow, triggerCol,
+				previouslyVisited);
+
+		findAllPossiblePathsOfAdventurerToTrigger(result, row, col, adventurerRow, adventurerCol - 1, triggerRow, triggerCol,
+				previouslyVisited);
+		findAllPossiblePathsOfAdventurerToTrigger(result, row, col, adventurerRow, adventurerCol + 1, triggerRow, triggerCol,
+				previouslyVisited);
+     }
+	// back track
+			previouslyVisited[adventurerRow][adventurerCol] = false;
+			result.remove(result.size() - 1);
+
+		
+		
+	}
+
+	public void findAllPossiblePathsOfTriggerToGold(List <int[]> result, int row, int col, int triggerRow,
+			int triggerCol, int goldRow, int goldCol, boolean[][] previouslyVisited) {
+		if (triggerRow < 0 || triggerRow >= row || triggerCol < 0 
+				|| triggerCol >= col
+			|| previouslyVisited[triggerRow][triggerCol]) {
+		return;
+	}
+
+	previouslyVisited[triggerRow][triggerCol] = true;
+	result.add(new int[] {triggerRow , triggerCol});
+
+	if ((goldRow == triggerRow && goldCol == triggerCol)) {	
+        
+		DungeonGameRepository.triggerToGoldWay.add(new ArrayList<>(result));
+		
+
+	} else {
+		findAllPossiblePathsOfTriggerToGold(result, row, col, triggerRow - 1, triggerCol, goldRow, goldCol,
+				previouslyVisited);
+
+		findAllPossiblePathsOfTriggerToGold(result, row, col, triggerRow + 1, triggerCol, goldRow, goldCol,
+				previouslyVisited);
+
+		findAllPossiblePathsOfTriggerToGold(result, row, col, triggerRow, triggerCol - 1, goldRow, goldCol,
+				previouslyVisited);
+		findAllPossiblePathsOfTriggerToGold(result, row, col, triggerRow, triggerCol + 1, goldRow, goldCol,
+				previouslyVisited);
+     }
+	// back track
+			previouslyVisited[triggerRow][triggerCol] = false;
+			result.remove(result.size() - 1);
+
+		
+		
+	}
+
+	public int printMinimumPathAdventurerToTriggerWithoutCollidingPits(int[][] pits) {
+		int currCount = 0 , minCount = Integer.MAX_VALUE;
+		  for (List<int[]> list : DungeonGameRepository.adventurerToTriggerWay) {
+			     boolean isCorrectWay = true;
+			     //collidingWith Monster
+			     if(isColidingWithMonster(list, DungeonGameRepository.monsterAllWays)) {
+			    	 isCorrectWay = false;
+			     }
+			     else {
+			    	 intArray :	for(int[] array : list) {
+			              
+							for(int i = 0 ; i < pits.length ; i++) {
+								  if(array[0] == pits[i][0] && array[1] == pits[i][1]) {
+									  isCorrectWay = false;
+									  break intArray;
+								  } 
+								}
+							}
+				       	
+			     }
+			     if(isCorrectWay) {
+	            	  currCount = list.size() - 1 ;
+	            	  if(currCount <= minCount) {
+	            		  minCount = currCount;
+	            		 
+	            		  DungeonGameRepository.adventurerToTriggerBestWay.add(list);
+	            	  }
+	              }
+	
+			
+		}
+		   System.out.println("The correct Minimim Path  is : ");
+		  for(List <int[]> list : DungeonGameRepository.adventurerToTriggerBestWay) {
+			  boolean isShortestPath = false;
+			  for(int [] arr : list) {
+				  if(list.size() == minCount + 1) {
+					  isShortestPath = true;
+					  System.out.print(Arrays.toString(arr)+" ");
+				  }  
+			  }
+			  if(isShortestPath) {
+				  System.out.println();
+			  }
+			   
+		  }
+		  return DungeonGameRepository.adventurerToTriggerBestWay.isEmpty() ?  -1 : minCount;
+		
+	}
+
+	public int printMinimumPathTriggerToGoldWithoutCollidingPits(int[][] pits) {
+		int currCount = 0 , minCount = Integer.MAX_VALUE;
+		  for (List<int[]> list : DungeonGameRepository.triggerToGoldWay) {
+			     boolean isCorrectWay = true;
+			  
+			    	 intArray :	for(int[] array : list) {
+			              
+							for(int i = 0 ; i < pits.length ; i++) {
+								  if(array[0] == pits[i][0] && array[1] == pits[i][1]) {
+									  isCorrectWay = false;
+									  break intArray;
+								  } 
+								}
+							}
+				       	
+			     
+			     if(isCorrectWay) {
+	            	  currCount = list.size() - 1 ;
+	            	  if(currCount <= minCount) {
+	            		  minCount = currCount;
+	            		 
+	            		  DungeonGameRepository.triggerToGoldBestWay.add(list);
+	            	  }
+	              }
+	
+			
+		}
+		   System.out.println("The correct Minimim Path  is : ");
+		  for(List <int[]> list : DungeonGameRepository.triggerToGoldBestWay) {
+			  boolean isShortestPath = false;
+			  for(int [] arr : list) {
+				  if(list.size() == minCount + 1) {
+					  isShortestPath = true;
+					  System.out.print(Arrays.toString(arr)+" ");
+				  }  
+			  }
+			  if(isShortestPath) {
+				  System.out.println();
+			  }
+			   
+		  }
+		  return DungeonGameRepository.triggerToGoldBestWay.isEmpty() ?  -1 : minCount;
+		
 		
 	}
 
