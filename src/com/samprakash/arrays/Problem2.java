@@ -47,15 +47,9 @@ public class Problem2 {
 			   System.out.print("<"+numbers[element.position]+","+element.weight+"> ");
 		   }
 		   System.out.println();
-		   Arrays.sort(weightage, new Comparator<Problem2>() {
-
-			@Override
-			public int compare(Problem2 o1, Problem2 o2) {
-				
-				return o1.weight < o2.weight ? 1 : -1;
-			}
-			   
-		   });
+		   
+		   Arrays.sort(weightage, (elem1,elem2) -> elem2.weight - elem1.weight);
+		   
 		   for(Problem2 element : weightage) {
 			   System.out.print("<"+numbers[element.position]+","+element.weight+"> ");
 		   }
@@ -63,3 +57,4 @@ public class Problem2 {
 	}
 
 }
+

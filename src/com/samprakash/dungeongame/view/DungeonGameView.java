@@ -81,6 +81,7 @@ public class DungeonGameView {
 			 * boolean[row][col]); //dungeonGameViewModel.printAllMonsterPossiblePaths();
 			 */
 		 int minCount = dungeonGameViewModel.findMinimumPath();
+		 
 		  int adventurerToGoldCount = dungeonGameViewModel.printMinimumPathAdventurerToTriggerWithoutCollidingPits(pits);
 		     if(adventurerToGoldCount != -1) {
 		    	 int triggerToGoldCount = dungeonGameViewModel.printMinimumPathTriggerToGoldWithoutCollidingPits(pits); 

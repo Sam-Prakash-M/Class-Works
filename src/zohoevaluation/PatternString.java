@@ -9,8 +9,6 @@ public class PatternString {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter a String : ");
 		String str = sc.next();
-		System.out.println("Enter a word to search : ");
-		String word = sc.next();
 		System.out.println("Enter a column Size : ");
 		int column = sc.nextInt();
 		int row = column % str.length() != 0 ? str.length() / column + 1 : str.length() / column;
@@ -26,7 +24,6 @@ public class PatternString {
 				}
 
 			}
-			System.out.println();
 		}
 		for (int i = 0; i < row; i++) {
 			for (int j = 0; j < column; j++) {
@@ -35,6 +32,8 @@ public class PatternString {
 			System.out.println();
 		}
 		PatternString ps = new PatternString();
+		System.out.println("Enter a word to search : ");
+		String word = sc.next();
 		ps.findTheWords(result, word);
 	}
 
@@ -59,15 +58,15 @@ public class PatternString {
 
 				}
 			}
-			System.out.println();
+			
 		}
 
 	}
 
 	private boolean isPresentInTheStringBottomSide(int row, int col, char[][] result,String word) {
 		    int currRow;
-		    int index = 1;
-		    for(currRow = row+1;currRow  < result.length ; currRow++,index++) {
+		    int index = 0;
+		    for(currRow = row;currRow  < result.length ; currRow++,index++) {
 		    	if(index < word.length() && result[currRow][col] != word.charAt(index)) {
 		    		return false;
 		    	}
@@ -83,8 +82,8 @@ public class PatternString {
 
 	private boolean isPresentInTheStringRightSide(int row, int col, char[][] result , String word) {
 		 int currCol;
-		    int index = 1;
-		    for(currCol = col+1; currCol < result[row].length ; currCol++,index++) {
+		    int index = 0;
+		    for(currCol = col; currCol < result[row].length ; currCol++,index++) {
 		    	if(index < word.length() && result[row][currCol] != word.charAt(index)) {
 		    		return false;
 		    	}

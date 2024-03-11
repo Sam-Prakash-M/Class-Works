@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Problem1 {
       
 	public static void main(String[] args) {
+		
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Enter the Total Number Of Persons : ");
 		int countOfMembers = scanner.nextInt();
@@ -24,7 +25,6 @@ public class Problem1 {
 			}
 				
 		}
-		scanner.close();
 		System.out.println("Find A Person who has how many Grand Childrens : ");
 		String match = scanner.next();
 		int noOfChildrens = findNoOfFathers(familyDetails,match);
@@ -43,6 +43,7 @@ public class Problem1 {
 				inner--;
 			}
 		}
+		
 		return result;
 		
 	}

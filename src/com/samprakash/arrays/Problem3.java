@@ -7,7 +7,7 @@ public class Problem3 {
 	 System.out.println("Enter the pattern (without Space) Design to Print : ");
 	 Scanner scanner = new Scanner(System.in);
 	   String pattern = scanner.next();
-	   scanner.close();
+	  
 	   patternPrinting(pattern);
 	   
 }

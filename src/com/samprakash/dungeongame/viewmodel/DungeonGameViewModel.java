@@ -48,12 +48,12 @@ public class DungeonGameViewModel {
 		int monsterCount = this.findMonsterCount(goldRow, goldCol, monsterRow, monsterCol);
 		allGamers.get(0).setAdventurerCount(adventurerCount);
 		allGamers.get(0).setMonsterCount(monsterCount);
-		return adventurerCount <= monsterCount ? adventurerCount : -1;
-		/*
-		 * return adventurerCount <= monsterCount ? adventurerCount :
-		 * this.possibleUsingTrigger(goldRow, goldCol, adventurerRow, adventurerCol,
-		 * monsterCount, adventurerCount);
-		 */
+		//return adventurerCount <= monsterCount ? adventurerCount : -1;
+		
+		  return adventurerCount <= monsterCount ? adventurerCount :
+		  this.possibleUsingTrigger(goldRow, goldCol, adventurerRow, adventurerCol,
+		  monsterCount, adventurerCount);
+		 
 	}
 
 	private int possibleUsingTrigger(int goldRow, int goldCol, int adventurerRow, int adventurerCol, int monsterCount,

@@ -4,7 +4,7 @@ public class CapsPatternPrinting {
 
 	public static void main(String[] args) {
 
-			new CapsPatternPrinting().printPattern("SamPrakash");
+			new CapsPatternPrinting().printPattern("SriMathan");
 
 	}
 
