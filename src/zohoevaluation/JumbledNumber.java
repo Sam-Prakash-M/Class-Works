@@ -1,16 +1,16 @@
-package com.samprakash.evaluation;
+package zohoevaluation;
 
 import java.util.Scanner;
 
-public class Question2 {
+public class JumbledNumber {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter a Number to check : ");
 		int number = sc.nextInt();
-		boolean jumbledNumber = isJumbledNumber(number);
-		System.out.println(jumbledNumber);
+		boolean result = isJumbledNumber(number);
+		System.out.println(result);
 
 	}
 

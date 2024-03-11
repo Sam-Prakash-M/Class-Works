@@ -1,8 +1,9 @@
-package com.samprakash.evaluation;
+package zohoevaluation;
 
 import java.util.Scanner;
+import java.util.Stack;
 
-public class Question3 {
+public class MathematicalExpression {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -12,13 +13,19 @@ public class Question3 {
 
 	}
 	private static boolean IsvalidMathematicalExpression(String string) {
-
-		int count = 0, index;
-		for (index = 0; index < string.length(); index++) {
+		
+		Stack <Character> stack = new Stack<>();
+		for (int index = 0; index < string.length(); index++) {
 			if (string.charAt(index) == '(') {
-				count++;
+				stack.push(string.charAt(index));
 			} else if (string.charAt(index) == ')') {
-				count--;
+				if(stack.isEmpty()) {
+					return false;
+				}
+			     char ch = stack.pop();
+			     if(ch !='(') {
+			    	 return false;
+			     }
 			}
 
 			else if (string.charAt(index) == '+' || string.charAt(index) == '-' || string.charAt(index) == '*'
@@ -35,11 +42,9 @@ public class Question3 {
 				} else {
 					return false;
 				}
-			} else {
-				continue;
-			}
+			} 
 		}
-		if (count == 0 && index == string.length()) {
+		if (stack.isEmpty()) {
 			return true;
 		} else {
 			return false;
